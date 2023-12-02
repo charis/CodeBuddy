@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Quickstart guide: https://www.prisma.io/docs/getting-started/quickstart
+//
+// Note: - Whenever you add the schema for the first time run:
+//           npx prisma migrate dev --name init
+//       - If you change the schema run:
+//           npx prisma generate
+//       - To install the , run:
+//           npm install @prisma/client
+//           (https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/install-prisma-client-typescript-postgresql)
+//       - To verify the changes, run:
+//           npx prisma studio
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+}
+// For SQLITE remove the previous and add the following:
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
+
+model User {
+  id                        Int      @id @default(autoincrement()) @map("_id")
+  email                     String   @unique
+  name                      String
+  password                  String
+  isVerified                Boolean @default(false)
+  forgotPasswordToken       String?
+  forgotPasswordTokenExpiry DateTime?
+  verifyToken               String?
+  verifyTokenExpiry         DateTime?
+  attemptedProblems         AttemptedProblem[]
+}
+
+model Problem {
+  id            Int      @id @default(autoincrement()) @map("_id")
+  problem_id    String   @unique
+  title         String
+  category      String
+  difficulty    String
+  order         Int      @unique
+  videoId       String?
+  link          String?
+  attemptedInfo AttemptedProblem[]
+}
+
+model AttemptedProblem {
+  id        Int     @id @default(autoincrement()) @map("_id")
+  problem   Problem @relation(fields: [pid], references: [id])
+  pid       Int
+  code      String
+  correct   Boolean @default(false)
+  user      User    @relation(fields: [uid], references: [id])
+  uid       Int
+}
