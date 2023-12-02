@@ -1,6 +1,6 @@
 /** The host URL */
 //export const HOST_URL = process.env.HOST_URL ?? 'http://localhost:3000';
-export const HOST_URL = process.env.HOST_URL ?? 'https://codebuddy-alpha.vercel.app';
+export const HOST_URL = process.env.HOST_URL ?? 'https://codebuddy-ai.vercel.app';
 
 /** The URL to log in */
 export const LOGIN_URL = HOST_URL + '/api/login';
