@@ -40,7 +40,6 @@ next-env.d.ts
 
 # Misc Files
 PACKAGE-UPDATE-README
-package-lock.json
 
 # test folders
 /src/app/test
