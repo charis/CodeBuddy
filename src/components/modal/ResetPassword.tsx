@@ -34,7 +34,7 @@ const ResetPassword:React.FC<ResetPasswordProps> = ({showModal}) => {
             
             try {
                 await sendEmail(email as string, EmailType.RESET_PASSWORD);
-                showSuccess('User registered successfully. Please, check your email to verify your account.');
+                showSuccess('We sent you an email with a link to reset your password.');
                 showModal('login');
             }
             catch (error: any) {
