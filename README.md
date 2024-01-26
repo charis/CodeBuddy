@@ -20,7 +20,7 @@ CodeBuddy is an online platform that provides a collection of programming challe
 
 <p align="center">
     <a href=https://codebuddy-ai.vercel.app/>
-        <img align="center" alt="video icon" width="256px" src="https://github.com/charis/resources/blob/main/images/codebuddy/youtube_thumbnail.png"/>
+        <img align="center" alt="video icon" width="256px" src="https://github.com/charis/resources/blob/main/images/codebuddy/live_env.png"/>
     </a>
     <br>
     <h3 align="center">Live Env</h3>
