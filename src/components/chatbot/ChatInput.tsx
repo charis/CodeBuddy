@@ -14,7 +14,6 @@ import 'regenerator-runtime/runtime'; // npm install regenerator-runtime@latest
 import { MessagesContext } from '@/context/messages';
 import { cn } from "@/util/utils";
 import { showError } from '@/util/UIUtil';
-import useHasMounted from "@/app/hooks/useHasMounted";
 import { ChatMessage, MessageContextType } from "@/types";
 
 interface ChatInputProps extends HTMLAttributes<HTMLDivElement> {

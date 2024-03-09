@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next();
         }
         catch (error) {
-            return new NextResponse('Something with Upstash rate limit control went wrong: ' + error);
+            return new NextResponse('Something with Upstash rate limit control went wrong');
         }
     }
 };
