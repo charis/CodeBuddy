@@ -34,6 +34,7 @@ const ChatInput:React.FC<ChatInputProps> = ({ className, ...props }) => {
 
     const {mutate: sendMessage, isPending} = useMutation({
         mutationFn: async (message: ChatMessage) => {
+            showError("DEBUG:" + JSON.stringify({ messages: messageContext.messages }))
             const response = await fetch('/api/message', {
                 method: 'POST',
                 headers: {
@@ -42,14 +43,18 @@ const ChatInput:React.FC<ChatInputProps> = ({ className, ...props }) => {
                 body: JSON.stringify({ messages: messageContext.messages }),
             });
             if (!response.ok) {
-                throw new Error(response.statusText);
+              showError("DEBUG: Error")
+              throw new Error(response.statusText);
             }
+            showError("DEBUG: OK")
             return response.body;
         },
         onMutate(message) { // This will fire before the mutationFn is fired and is passed the same args
-            messageContext.addMessage(message);
+          showError("DEBUG: onMutate" + message.text)
+          messageContext.addMessage(message);
         },
         onSuccess: async (stream) => {
+            showError("DEBUG: onSuccess")
             // Display the stream while we are getting it from the server
             // to the client (i.e., in real-time)
             if (!stream) {
@@ -86,7 +91,8 @@ const ChatInput:React.FC<ChatInputProps> = ({ className, ...props }) => {
             textareaRef.current?.focus();
         },
         onError(error, message) {
-            showError('Something went wrong. Please try again. (message ID = ' + message.id + ', isUserMessage = ' + message.isUserMessage + ', text = ' + message.text +')');
+            showError("DEBUG: onError " + error?.message)
+            //showError('Something went wrong. Please try again. (message ID = ' + message.id + ', isUserMessage = ' + message.isUserMessage + ', text = ' + message.text +')');
             messageContext.removeMessage(message.id);
             textareaRef.current?.focus();
         }
