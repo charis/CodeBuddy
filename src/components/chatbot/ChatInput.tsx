@@ -86,7 +86,7 @@ const ChatInput:React.FC<ChatInputProps> = ({ className, ...props }) => {
             textareaRef.current?.focus();
         },
         onError(error, message) {
-            showError('Something went wrong. Please try again. (' + message + ')');
+            showError('Something went wrong. Please try again. (message ID = ' + message.id + ', isUserMessage = ' + message.isUserMessage + ', text = ' + message.text +')');
             messageContext.removeMessage(message.id);
             textareaRef.current?.focus();
         }
