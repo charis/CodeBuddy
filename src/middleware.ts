@@ -3,8 +3,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 // Custom imports
 import { rateLimiter } from "@/app/lib/redis_rate-limiter";
-import { redis } from "@/app/lib/redis_rate-limiter";
-import { getServerSession } from 'next-auth/next';
 import { getToken } from 'next-auth/jwt';
 
 // Without a defined matcher, the following line applies next-auth
@@ -65,7 +63,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next();
         }
         catch (error) {
-            return new NextResponse('Something went wrong processing your message. Please try again later.');
+            return new NextResponse('Something with Upstash rate limit control went wrong: ' + error);
         }
     }
 };
