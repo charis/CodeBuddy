@@ -2,7 +2,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 // Custom imports
-import { rateLimiter } from "@/app/lib/redis_rate-limiter";
 import { getToken } from 'next-auth/jwt';
 
 // Without a defined matcher, the following line applies next-auth
@@ -49,22 +48,8 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/auth', request.nextUrl));
     }
     
-    // If the user send too often message API requests, block them
-    // (i.e., limit the rate they send requests)
     if (isMessageApiPath) {
-        const ip = request.ip ?? '127.0.0.1';
-
-        try {
-            const { success } = await rateLimiter.limit(ip);
-          
-            if (!success) {
-                return new NextResponse('You are writing messages too fast. Please, slow down.');
-            }
-            return NextResponse.next();
-        }
-        catch (error) {
-            return new NextResponse('Something with Upstash rate limit control went wrong');
-        }
+        return NextResponse.next();
     }
 };
 
